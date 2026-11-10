@@ -15,10 +15,9 @@ Publicly available datasets from the Gene Expression Omnibus (GEO) are used:
 This study uses an integrative multi-omics approach to investigate the relationship between DNA methylation and gene expression in asthma.
 
 ### Possible research questions:
-
-**1. Do DNA methylation and gene expression patterns differ between eosinophilic and non-eosinophilic asthma phenotypes?**
-**2. Are DNA methylation changes associated with altered expression of epithelial barrier genes in asthma?**
-**3. Are DNA methylation changes associated with altered expression of airway remodeling genes in asthma?**
+1. Do DNA methylation and gene expression patterns differ between eosinophilic and non-eosinophilic asthma phenotypes?
+2. Are DNA methylation changes associated with altered expression of epithelial barrier genes in asthma?
+3. Are DNA methylation changes associated with altered expression of airway remodeling genes in asthma?
 
 ### Study workflow
 
