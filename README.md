@@ -212,7 +212,62 @@ The selection of participants for multi-omics analysis additionally requires ver
 ---
 
 ## 2. Sample selection
+ 
+### Objective = integration of DNA methylation and RNA-seq metadata
 
+DNA methylation metadata (GSE201872) and RNA-seq metadata (GSE201955) were obtained from the Gene Expression Omnibus (GEO).
+The DNA methylation dataset was restricted to samples analyzed using the Illumina HumanMethylation450 BeadChip (GPL13534). Participants were considered eligible if they met the following criteria:
+
+- Body mass index (BMI) < 30 kg/m²
+- No current smoking (`current_smok == "No"`)
+- Availability of DNA methylation data
+
+These criteria resulted in **41 eligible DNA methylation samples**.
+RNA-seq metadata contained **118 samples**. Participants were matched across the two datasets using the `geo_id` identifier in the methylation metadata and the `description` field in the RNA-seq metadata.
+A total of **37 participants** had matching identifiers across both datasets, comprising 21 asthma patients and 16 controls.
+Clinical metadata were compared across platforms to verify sample correspondence. Asthma status was concordant for all 37 matched participants, and no duplicate identifiers were detected. For the final selection, age, BMI, and current smoking status were also concordant across both datasets after harmonizing smoking status codes (`No`/`Yes` and `N`/`Y`).
+
+### Final Sample Selection
+
+A stratified random selection was performed using a fixed random seed (`set.seed(2026)`), selecting five asthma patients and five controls from each of the ABRIDGE and CABFIR recruitment cohorts.
+This approach ensured equal representation of asthma patients and controls within each recruitment cohort and methylation batch. The ROLD cohort was excluded from the final selection because no eligible controls were available.
+
+| Recruitment cohort | Methylation batch | Asthma | Control | Total |
+|---|---|---:|---:|---:|
+| ABRIDGE | 1 | 5 | 5 | 10 |
+| CABFIR | 2 | 5 | 5 | 10 |
+| **Total** | | **10** | **10** | **20** |
+
+The selected participants had a mean age of 34.3 years in the asthma group and 34.0 years in the control group. Mean BMI was 24.5 and 24.0 kg/m², respectively.
+All 20 selected participants met the BMI and current smoking criteria and had corresponding GEO sample accessions for both omics datasets.
+
+### Sample Selection Workflow
+
+```mermaid
+flowchart TD
+    A["DNA methylation metadata<br/>GSE201872: 142 samples"]
+    B["450K platform and eligibility filtering<br/>BMI &lt; 30; no current smoking"]
+    C["41 eligible methylation samples"]
+    D["RNA-seq metadata<br/>GSE201955: 118 samples"]
+    E["Match participant identifiers<br/>and verify asthma status"]
+    F["37 matched participants<br/>21 Asthma / 16 Control"]
+    G["Restrict to ABRIDGE and CABFIR<br/>31 participants"]
+    H["Stratified random selection<br/>5 Asthma + 5 Control per cohort"]
+    I["Final multi-omics cohort<br/>10 Asthma + 10 Control"]
+
+    A --> B --> C --> E
+    D --> E
+    E --> F --> G --> H --> I
+```
+
+### Reproducibility
+
+Eligible DNA methylation candidates are saved as an RDS file by `code/01_download_metadata.R`.
+The file is then loaded by `code/02_rnaseq_metadata.R` to identify participants with both DNA methylation and RNA-seq data.
+A fixed random seed (`set.seed(2026)`) is used to make the selection reproducible. The final sample manifest is saved locally as a CSV file and is not included in the public repository.
+
+The selection procedure and metadata validation are implemented in [`code/02_rnaseq_metadata.R`](code/02_rnaseq_metadata.R). The participant-level sample manifest is retained locally and is not included in the public repository.
+ 
 ## 3. DNA methylation analysis
 
 ## 4. RNA-seq analysis

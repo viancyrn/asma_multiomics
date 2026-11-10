@@ -37,3 +37,8 @@ vignettes/*.html
 vignettes/*.pdf
 po/*~
 rsconnect/
+
+# Participant-level metadata
+results/GSE201872_candidate_overview.csv
+results/eligible_methylation_candidates.rds
+results/multiomics_sample_manifest.csv

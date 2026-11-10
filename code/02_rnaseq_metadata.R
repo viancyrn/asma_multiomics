@@ -2,6 +2,11 @@
 library(GEOquery)
 library(dplyr)
 
+# Cargar los candidatos elegibles del análisis de metilación
+eligible_candidates <- readRDS(
+  "results/eligible_methylation_candidates.rds"
+)
+
 # 2. Descargar los metadatos de RNA-seq
 gse_rnaseq <- getGEO(
   "GSE201955",

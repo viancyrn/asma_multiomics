@@ -375,16 +375,16 @@ ggplot2::ggsave(
   bg = "white"
 )
 
-# 6. Crear la carpeta para las figuras de metilación
+# 6. Crear la carpeta para las figuras del análisis exploratorio de datos
 dir.create(
-  "results/methylation/figures",
+  "results/figures",
   recursive = TRUE,
   showWarnings = FALSE
 )
 
 # 7. Guardar la primera figura en alta resolución
 ggplot2::ggsave(
-  filename = "results/methylation/figures/01_platform_distribution.png",
+  filename = "results/figures/01_platform_distribution.png",
   plot = fig_platform,
   width = 8,
   height = 5,
@@ -437,7 +437,7 @@ fig_filtering <- ggplot2::ggplot(
     y = "Number of samples",
     fill = "Clinical group"
   ) +
-  ggplot2::theme_minimal(base_size = 13) +
+  ggplot2::theme_minimal(base_size = 12) +
   ggplot2::theme(
     plot.title = ggplot2::element_text(face = "bold"),
     legend.position = "top",
@@ -446,7 +446,7 @@ fig_filtering <- ggplot2::ggplot(
 
 # 11. Guardar la segunda figura
 ggplot2::ggsave(
-  "results/methylation/figures/02_eligibility_filtering.png",
+  "results/figures/02_eligibility_filtering.png",
   plot = fig_filtering,
   width = 8,
   height = 5,
@@ -507,7 +507,7 @@ fig_recruitment <- ggplot2::ggplot(
 
 # 15. Guardar la tercera figura
 ggplot2::ggsave(
-  filename = "results/methylation/figures/03_recruitment_source.png",
+  filename = "results/figures/03_recruitment_source.png",
   plot = fig_recruitment,
   width = 8,
   height = 5,
@@ -568,7 +568,7 @@ fig_age <- ggplot2::ggplot(
 
 # 18. Guardar la figura de edad con los extremos de los bigotes
 ggplot2::ggsave(
-  filename = "results/methylation/figures/04_age_distribution.png",
+  filename = "results/figures/04_age_distribution.png",
   plot = fig_age,
   width = 9,
   height = 5,
@@ -623,7 +623,7 @@ fig_bmi <- ggplot2::ggplot(
 
 # 20. Guardar la figura de distribución del IMC
 ggplot2::ggsave(
-  filename = "results/methylation/figures/05_bmi_distribution.png",
+  filename = "results/figures/05_bmi_distribution.png",
   plot = fig_bmi,
   width = 9,
   height = 5,
@@ -683,7 +683,7 @@ fig_sex <- ggplot2::ggplot(
 
 # 26. Guardar la figura de distribución por sexo
 ggplot2::ggsave(
-  filename = "results/methylation/figures/06_sex_distribution.png",
+  filename = "results/figures/06_sex_distribution.png",
   plot = fig_sex,
   width = 9,
   height = 5,
@@ -691,3 +691,8 @@ ggplot2::ggsave(
   bg = "white"
 )
 
+# Guardar los candidatos elegibles para utilizarlos en otros análisis
+saveRDS(
+  eligible_candidates,
+  file = "results/eligible_methylation_candidates.rds"
+)
