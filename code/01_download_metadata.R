@@ -556,7 +556,7 @@ fig_age <- ggplot2::ggplot(
   ) +
   ggplot2::labs(
     title = "Age distribution of eligible candidates",
-    subtitle = "GPL13534 | BMI < 30 and current non-smokers",
+    subtitle = "GPL13534 | BMI < 30 and current non-smoker",
     x = "Clinical group",
     y = "Age (years)"
   ) +
@@ -690,3 +690,4 @@ ggplot2::ggsave(
   dpi = 300,
   bg = "white"
 )
+
