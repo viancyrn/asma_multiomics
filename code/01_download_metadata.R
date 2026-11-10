@@ -353,7 +353,7 @@ fig_platform <- ggplot2::ggplot(
     y = "Number of samples",
     fill = "Clinical group"
   ) +
-  ggplot2::theme_minimal(base_size = 13) +
+  ggplot2::theme_minimal(base_size = 12) +
   ggplot2::theme(
     plot.title = ggplot2::element_text(face = "bold"),
     legend.position = "top",
@@ -432,7 +432,7 @@ fig_filtering <- ggplot2::ggplot(
   ) +
   ggplot2::labs(
     title = "Eligibility filtering of methylation samples",
-    subtitle = "GPL13534 | BMI < 30 and no current smoking",
+    subtitle = "GPL13534 | BMI < 30 and current non-smoker",
     x = NULL,
     y = "Number of samples",
     fill = "Clinical group"
@@ -611,7 +611,7 @@ fig_bmi <- ggplot2::ggplot(
   ) +
   ggplot2::labs(
     title = "BMI distribution of eligible candidates",
-    subtitle = "GPL13534 | BMI < 30 & current non-smoker",
+    subtitle = "GPL13534 | BMI < 30 and current non-smoker",
     x = "Clinical group",
     y = "BMI (kg/m²)"
   ) +
@@ -669,7 +669,7 @@ fig_sex <- ggplot2::ggplot(
   ) +
   ggplot2::labs(
     title = "Sex distribution of eligible candidates",
-    subtitle = "GPL13534 | BMI < 30 & current non-smoker",
+    subtitle = "GPL13534 | BMI < 30 and current non-smoker",
     x = "Sex",
     y = "Number of candidates",
     fill = "Clinical group"
