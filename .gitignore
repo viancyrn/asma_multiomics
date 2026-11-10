@@ -1,0 +1,21 @@
+# Archivos temporales de R y RStudio
+.Rhistory
+.RData
+.RDataTmp
+.Ruserdata/
+.Rproj.user/
+
+# Archivos del sistema macOS
+.DS_Store
+
+# Datos brutos y archivos grandes
+data/raw/
+*.idat
+*.fastq
+*.fastq.gz
+*.bam
+*.bai
+
+# Archivos temporales
+*.tmp
+*.log
