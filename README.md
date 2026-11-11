@@ -115,7 +115,7 @@ As part of the prepatory first phase I examined the clinical metadata and techni
 The exploratory analysis aims to:
 - Characterize the available samples and methylation platforms.
 - Apply preliminary eligibility criteria.
-- Examine recruitment source distributions.
+- Examine study distributions.
 - Compare age, BMI, and sex between asthma and control candidates.
 - Assess the feasibility of selecting comparable groups for multi-omics analysis.
 
@@ -133,8 +133,6 @@ GSE201872 contains 142 samples measured using two Illumina methylation platforms
 
 The initial analysis focuses on GPL13534 to maintain consistency in the methylation platform.
 
-![DNA methylation platform distribution](results/figures/01_platform_distribution.png)
-
 ### 1.2 Eligibility Filtering
 
 The following preliminary eligibility criteria were applied:
@@ -151,13 +149,13 @@ After filtering, 41 eligible methylation candidates remained:
 | Control | 41 | 18 |
 | **Total** | **112** | **41** |
 
-![Eligibility filtering](results/figures/02_eligibility_filtering.png)
+![Table 1. DNA methylation sample availability and eligibility](results/tables/01_sample_availability.png)
 
-### 1.3 Recruitment Source Distribution
+### 1.3 Study group distribution
 
-The eligible methylation candidates originate from three recruitment sources.
+The eligible methylation candidates originate from three different studies.
 
-| Recruitment source | Asthma | Control | Total |
+| Study | Asthma | Control | Total |
 |---|---:|---:|---:|
 | ABRIDGE | 10 | 7 | 17 |
 | CABFIR | 7 | 11 | 18 |
@@ -166,9 +164,9 @@ The eligible methylation candidates originate from three recruitment sources.
 
 ABRIDGE and CABFIR contain both asthma and control candidates. ROLD contains no eligible controls.
 
-Consequently, ABRIDGE and CABFIR are the principal recruitment sources considered for the paired study design.
+Consequently, ABRIDGE and CABFIR are the principal studies considered for the paired study design.
 
-![Recruitment source distribution](results/figures/03_recruitment_source.png)
+![Table 2. Eligible candidates by study cohort](results/tables/02_study_cohort_distribution.png)
 
 ### 1.4 Age Distribution
 
@@ -178,34 +176,32 @@ The boxplots show the distribution of ages within each clinical group, with indi
 
 Age comparability is an important consideration when selecting participants for the integrated analysis.
 
-![Age distribution of eligible candidates](results/figures/04_age_distribution.png)
 
 ### 1.5 BMI Distribution
 
-BMI distributions were examined across clinical groups and recruitment sources.
+BMI distributions were examined across clinical groups and studies.
 
 All included candidates had a BMI below 30 kg/m², in accordance with the preliminary eligibility criteria.
 
-![BMI distribution of eligible candidates](results/figures/05_bmi_distribution.png)
 
 ### 1.6 Sex Distribution
 
 Sex distributions were compared between asthma and control candidates within ABRIDGE and CABFIR.
 
-| Recruitment source | Clinical group | Female | Male |
+| Study | Clinical group | Female | Male |
 |---|---|---:|---:|
 | ABRIDGE | Asthma | 6 | 4 |
 | ABRIDGE | Control | 5 | 2 |
 | CABFIR | Asthma | 3 | 4 |
 | CABFIR | Control | 7 | 4 |
 
-![Sex distribution of eligible candidates](results/figures/06_sex_distribution.png)
+![Table 3. Clinical characteristics of eligible candidates](results/tables/03_clinical_characteristics.png)
 
 ### 1.7 Exploratory analysis summary
 
 The exploratory analysis identified 41 eligible DNA methylation candidates on GPL13534, comprising 23 individuals with asthma and 18 controls.
 ABRIDGE and CABFIR provide candidates from both clinical groups, making them suitable sources for further sample selection.
-The exploratory analysis also identified a technical consideration: among the eligible candidates, recruitment source and methylation batch are confounded. ABRIDGE candidates belong to batch 1, whereas CABFIR candidates belong to batch 2.
+The exploratory analysis also identified a technical consideration: among the eligible candidates, study (recruitment source) and methylation batch are confounded. ABRIDGE candidates belong to batch 1, whereas CABFIR candidates belong to batch 2.
 This relationship must be considered when interpreting downstream comparisons.
 The selection of participants for multi-omics analysis additionally requires verification of sample overlap with GSE201955.
 
@@ -229,10 +225,10 @@ Clinical metadata were compared across platforms to verify sample correspondence
 
 ### Final Sample Selection
 
-A stratified random selection was performed using a fixed random seed (`set.seed(2026)`), selecting five asthma patients and five controls from each of the ABRIDGE and CABFIR recruitment cohorts.
-This approach ensured equal representation of asthma patients and controls within each recruitment cohort and methylation batch. The ROLD cohort was excluded from the final selection because no eligible controls were available.
+A stratified random selection was performed using a fixed random seed (`set.seed(2026)`), selecting five asthma patients and five controls from each of the ABRIDGE and CABFIR study cohorts.
+This approach ensured equal representation of asthma patients and controls within each study cohort and methylation batch. The ROLD cohort was excluded from the final selection because no eligible controls were available.
 
-| Recruitment cohort | Methylation batch | Asthma | Control | Total |
+| Study cohort | Methylation batch | Asthma | Control | Total |
 |---|---|---:|---:|---:|
 | ABRIDGE | 1 | 5 | 5 | 10 |
 | CABFIR | 2 | 5 | 5 | 10 |
@@ -288,11 +284,17 @@ The exploratory metadata analysis is available in:
 
 [`code/01_download_metadata.R`](code/01_download_metadata.R)
 
-### Figures
+### Descriptive tables
 
-All exploratory figures are available in:
+The exploratory analysis results are presented as three descriptive tables:
 
-[`results/figures/`](results/figures/)
+- **Table 1:** DNA methylation sample availability and eligibility.
+- **Table 2:** Eligible candidates by study cohort.
+- **Table 3:** Clinical characteristics of eligible candidates.
+
+The tables are available as PNG images and CSV files in:
+
+[`results/tables/`](results/tables/)
 
 ### Data Sources
 
