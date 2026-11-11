@@ -224,8 +224,13 @@ This approach ensured equal representation of asthma patients and controls withi
 | CABFIR | 2 | 5 | 5 | 10 |
 | **Total** | | **10** | **10** | **20** |
 
-The selected participants had a mean age of 34.3 years in the asthma group and 34.0 years in the control group. Mean BMI was 24.5 and 24.0 kg/m², respectively.
-All 20 selected participants met the BMI and current smoking criteria and had corresponding GEO sample accessions for both omics datasets.
+The clinical characteristics of the 20 selected participants are summarized in Table 4, allowing comparison of age, sex, BMI, and current smoking status between the asthma and control groups.
+
+<p align="center">
+  <img src="results/tables/04_final_sample_characteristics.png" alt="Table 4. Clinical characteristics of the final multi-omics cohort" width="650">
+</p>
+
+All 20 selected participants met the eligibility criteria and had corresponding GEO sample accessions for both DNA methylation and RNA-seq. Maternal asthma status was also included in the sample manifest, using the original GEO metadata.
 
 ### Sample Selection Workflow
 
