@@ -141,7 +141,7 @@ The following preliminary eligibility criteria were applied:
 
 - DNA methylation platform: GPL13534.
 - BMI below 30 kg/m².
-- No current smoking.
+- Current non-smoker.
 
 After filtering, 41 eligible methylation candidates remained:
 
