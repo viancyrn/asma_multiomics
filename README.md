@@ -20,7 +20,6 @@ This study uses an integrative multi-omics approach to investigate the relations
 3. Are DNA methylation changes associated with altered expression of airway remodeling genes in asthma?
 
 ### Study workflow
-
 The following workflow summarizes the study design, from exploratory data analysis to the integration of DNA methylation and RNA-seq results.
 
 ```mermaid
@@ -75,7 +74,6 @@ flowchart TD
 ```
 
 ### RNA-seq processing workflow
-
 The RNA-seq analysis uses a Salmon-based transcript quantification approach rather than a conventional genome-alignment workflow.
 
 ```mermaid
@@ -122,7 +120,6 @@ The exploratory analysis aims to:
 The analysis was performed in R using publicly available GEO metadata. R code can be found in the code depository.
 
 ### 1.1 DNA methylation platform distribution
-
 GSE201872 contains 142 samples measured using two Illumina methylation platforms:
 
 | Platform | Asthma | Control | Total |
@@ -134,7 +131,6 @@ GSE201872 contains 142 samples measured using two Illumina methylation platforms
 The initial analysis focuses on GPL13534 to maintain consistency in the methylation platform.
 
 ### 1.2 Eligibility Filtering
-
 The following preliminary eligibility criteria were applied:
 
 - DNA methylation platform: GPL13534.
@@ -153,23 +149,13 @@ After filtering, 41 eligible methylation candidates remained:
 <p align="center">
   <img src="results/tables/01_sample_availability.png"
        alt="Table 1. DNA methylation sample availability and eligibility"
-       width="550">
+       width="650">
 </p>
 
 ### 1.3 Study group distribution
-
-The eligible methylation candidates originate from three different studies.
-
-| Study | Asthma | Control | Total |
-|---|---:|---:|---:|
-| ABRIDGE | 10 | 7 | 17 |
-| CABFIR | 7 | 11 | 18 |
-| ROLD | 6 | 0 | 6 |
-| **Total** | **23** | **18** | **41** |
-
-ABRIDGE and CABFIR contain both asthma and control candidates. ROLD contains no eligible controls.
-
-Consequently, ABRIDGE and CABFIR are the principal studies considered for the paired study design.
+The 41 eligible methylation candidates originated from three study cohorts: ABRIDGE (n = 17), CABFIR (n = 18), and ROLD (n = 6).
+ABRIDGE and CABFIR included both asthma and control candidates, whereas ROLD contained only asthma candidates (n = 6). Consequently, ABRIDGE and CABFIR were considered for the paired study design.
+The distribution of eligible candidates across these two study cohorts is presented in Table 2.
 
 <!-- Table 2: Study cohort distribution -->
 <p align="center">
@@ -179,23 +165,15 @@ Consequently, ABRIDGE and CABFIR are the principal studies considered for the pa
 </p>
 
 ### 1.4 Age Distribution
-
 Age distributions were examined separately for ABRIDGE and CABFIR.
-
 The boxplots show the distribution of ages within each clinical group, with individual observations displayed as points.
-
 Age comparability is an important consideration when selecting participants for the integrated analysis.
 
-
 ### 1.5 BMI Distribution
-
 BMI distributions were examined across clinical groups and studies.
-
 All included candidates had a BMI below 30 kg/m², in accordance with the preliminary eligibility criteria.
 
-
 ### 1.6 Sex Distribution
-
 Sex distributions were compared between asthma and control candidates within ABRIDGE and CABFIR.
 
 | Study | Clinical group | Female | Male |
@@ -213,7 +191,6 @@ Sex distributions were compared between asthma and control candidates within ABR
 </p>
 
 ### 1.7 Exploratory analysis summary
-
 The exploratory analysis identified 41 eligible DNA methylation candidates on GPL13534, comprising 23 individuals with asthma and 18 controls.
 ABRIDGE and CABFIR provide candidates from both clinical groups, making them suitable sources for further sample selection.
 The exploratory analysis also identified a technical consideration: among the eligible candidates, study (recruitment source) and methylation batch are confounded. ABRIDGE candidates belong to batch 1, whereas CABFIR candidates belong to batch 2.
@@ -223,9 +200,8 @@ The selection of participants for multi-omics analysis additionally requires ver
 ---
 
 ## 2. Sample selection
- 
-### Objective = integration of DNA methylation and RNA-seq metadata
 
+### Objective = integration of DNA methylation and RNA-seq metadata
 DNA methylation metadata (GSE201872) and RNA-seq metadata (GSE201955) were obtained from the Gene Expression Omnibus (GEO).
 The DNA methylation dataset was restricted to samples analyzed using the Illumina HumanMethylation450 BeadChip (GPL13534). Participants were considered eligible if they met the following criteria:
 
@@ -239,7 +215,6 @@ A total of **37 participants** had matching identifiers across both datasets, co
 Clinical metadata were compared across platforms to verify sample correspondence. Asthma status was concordant for all 37 matched participants, and no duplicate identifiers were detected. For the final selection, age, BMI, and current smoking status were also concordant across both datasets after harmonizing smoking status codes (`No`/`Yes` and `N`/`Y`).
 
 ### Final Sample Selection
-
 A stratified random selection was performed using a fixed random seed (`set.seed(2026)`), selecting five asthma patients and five controls from each of the ABRIDGE and CABFIR study cohorts.
 This approach ensured equal representation of asthma patients and controls within each study cohort and methylation batch. The ROLD cohort was excluded from the final selection because no eligible controls were available.
 
@@ -272,11 +247,9 @@ flowchart TD
 ```
 
 ### Reproducibility
-
 Eligible DNA methylation candidates are saved as an RDS file by `code/01_download_metadata.R`.
 The file is then loaded by `code/02_rnaseq_metadata.R` to identify participants with both DNA methylation and RNA-seq data.
 A fixed random seed (`set.seed(2026)`) is used to make the selection reproducible. The final sample manifest is saved locally as a CSV file and is not included in the public repository.
-
 The selection procedure and metadata validation are implemented in [`code/02_rnaseq_metadata.R`](code/02_rnaseq_metadata.R). The participant-level sample manifest is retained locally and is not included in the public repository.
  
 ## 3. DNA methylation analysis
@@ -294,13 +267,12 @@ The selection procedure and metadata validation are implemented in [`code/02_rna
 The analysis is implemented in R.
 
 ### Source Code
-
 The exploratory metadata analysis is available in:
 
 [`code/01_download_metadata.R`](code/01_download_metadata.R)
+[`code/02_rnaseq_metadata.R`](code/02_rnaseq_metadata.R)
 
 ### Descriptive tables
-
 The exploratory analysis results are presented as three descriptive tables:
 
 - **Table 1:** DNA methylation sample availability and eligibility.
@@ -312,7 +284,6 @@ The tables are available as PNG images and CSV files in:
 [`results/tables/`](results/tables/)
 
 ### Data Sources
-
 - [GSE201872 — DNA methylation](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE201872)
 - [GSE201955 — RNA-seq](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE201955)
 - [GSE210843 — GEO SuperSeries](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE210843)
