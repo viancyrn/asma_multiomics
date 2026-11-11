@@ -504,9 +504,9 @@ fig_recruitment <- ggplot2::ggplot(
     expand = ggplot2::expansion(mult = c(0, 0.12))
   ) +
   ggplot2::labs(
-    title = "Eligible candidates by recruitment source",
+    title = "Eligible candidates by study cohort",
     subtitle = "GPL13534 | BMI < 30 and current non-smoker",
-    x = "Recruitment source",
+    x = "Study cohort",
     y = "Number of candidates",
     fill = "Clinical group"
   ) +
@@ -706,6 +706,214 @@ ggplot2::ggsave(
   dpi = 300,
   bg = "white"
 )
+
+# 21. Comprobar que los paquetes necesarios estén instalados
+required_packages <- c("ggplot2", "dplyr", "patchwork", "gridExtra")
+
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+
+# 22. Crear una figura combinada con las figuras 1, 2 y 3
+# Se conservan las tres figuras originales por separado
+
+fig_combined <- (
+  fig_platform /
+    fig_filtering /
+    fig_recruitment
+) +
+  patchwork::plot_layout(heights = c(1, 1, 1)) +
+  patchwork::plot_annotation(
+    title = "Overview of DNA methylation sample availability and eligibility",
+    subtitle = "GSE201872 | Platforms, eligibility filtering and study cohorts",
+    tag_levels = "A"
+  )
+
+# 23. Mostrar la figura combinada
+print(fig_combined)
+
+# 24. Guardar la figura combinada
+ggplot2::ggsave(
+  filename = "results/figures/07_combined_overview.png",
+  plot = fig_combined,
+  width = 11,
+  height = 15,
+  dpi = 300,
+  bg = "white"
+)
+
+# 25. Preparar los datos para el gráfico de puntos
+# Se incluyen únicamente las cohortes ABRIDGE y CABFIR
+
+dotplot_counts <- eligible_candidates |>
+  dplyr::filter(
+    `recruitment source` %in% c("ABRIDGE", "CABFIR"),
+    asthma %in% c("Asthma", "Control")
+  ) |>
+  dplyr::count(
+    `recruitment source`,
+    asthma,
+    name = "n"
+  ) |>
+  tidyr::complete(
+    `recruitment source` = c("ABRIDGE", "CABFIR"),
+    asthma = c("Asthma", "Control"),
+    fill = list(n = 0)
+  )
+
+dotplot_counts$asthma <- factor(
+  dotplot_counts$asthma,
+  levels = c("Control", "Asthma")
+)
+
+# 26. Crear el gráfico de puntos por cohorte y diagnóstico
+fig_dotplot <- ggplot2::ggplot(
+  dotplot_counts,
+  ggplot2::aes(
+    x = n,
+    y = `recruitment source`,
+    color = asthma
+  )
+) +
+  ggplot2::geom_point(
+    size = 4,
+    position = ggplot2::position_dodge(width = 0.45)
+  ) +
+  ggplot2::geom_text(
+    ggplot2::aes(label = n),
+    position = ggplot2::position_dodge(width = 0.45),
+    hjust = -0.8,
+    size = 3.8,
+    show.legend = FALSE
+  ) +
+  ggplot2::scale_color_manual(
+    values = c(
+      "Asthma" = "#0072B2",
+      "Control" = "#E69F00"
+    )
+  ) +
+  ggplot2::scale_x_continuous(
+    breaks = function(x) seq(
+      0,
+      ceiling(max(x)),
+      by = 1
+    ),
+    expand = ggplot2::expansion(
+      mult = c(0.02, 0.20)
+    )
+  ) +
+  ggplot2::labs(
+    title = "Eligible methylation candidates by cohort",
+    subtitle = "ABRIDGE and CABFIR | BMI < 30 and current non-smoker",
+    x = "Number of eligible candidates",
+    y = "Study cohort",
+    color = "Clinical group"
+  ) +
+  ggplot2::theme_minimal(base_size = 12) +
+  ggplot2::theme(
+    plot.title = ggplot2::element_text(face = "bold"),
+    legend.position = "top",
+    panel.grid.major.y = ggplot2::element_blank()
+  )
+
+# 27. Mostrar el gráfico de puntos
+print(fig_dotplot)
+
+# 28. Guardar el gráfico de puntos
+ggplot2::ggsave(
+  filename = "results/figures/08_cohort_dotplot.png",
+  plot = fig_dotplot,
+  width = 9,
+  height = 5,
+  dpi = 300,
+  bg = "white"
+)
+
+# 29. Preparar los datos para la tabla resumen
+# Se muestran los recuentos originales y los candidatos elegibles
+
+table_platform <- clinical_metadata |>
+  dplyr::count(
+    platform,
+    asthma,
+    name = "n"
+  ) |>
+  dplyr::mutate(
+    Section = "Original methylation samples",
+    Category = platform
+  ) |>
+  dplyr::select(
+    Section,
+    Category,
+    asthma,
+    n
+  )
+
+table_eligible <- eligible_candidates |>
+  dplyr::count(
+    asthma,
+    name = "n"
+  ) |>
+  dplyr::mutate(
+    Section = "Eligible candidates",
+    Category = "GPL13534"
+  ) |>
+  dplyr::select(
+    Section,
+    Category,
+    asthma,
+    n
+  )
+
+table_cohort <- eligible_candidates |>
+  dplyr::filter(
+    `recruitment source` %in% c("ABRIDGE", "CABFIR")
+  ) |>
+  dplyr::count(
+    `recruitment source`,
+    asthma,
+    name = "n"
+  ) |>
+  dplyr::mutate(
+    Section = "Eligible candidates by cohort",
+    Category = `recruitment source`
+  ) |>
+  dplyr::select(
+    Section,
+    Category,
+    asthma,
+    n
+  )
+
+# 30. Combinar los recuentos en una sola tabla
+summary_long <- dplyr::bind_rows(
+  table_platform,
+  table_eligible,
+  table_cohort
+)
+
+summary_table <- summary_long |>
+  tidyr::pivot_wider(
+    names_from = asthma,
+    values_from = n,
+    values_fill = 0
+  ) |>
+  dplyr::mutate(
+    Total = rowSums(
+      dplyr::across(
+        dplyr::all_of(c("Asthma", "Control"))
+      )
+    )
+  ) |>
+  dplyr::select(
+    Section,
+    Category,
+    Asthma,
+    Control,
+    Total
+  )
 
 # Guardar los candidatos elegibles para utilizarlos en otros análisis
 saveRDS(
