@@ -441,5 +441,5 @@ readr::write_csv(
 save_table_png(
   table_4,
   "results/tables/04_final_sample_characteristics.png",
-  "Table 4. Clinical characteristics of the final multi-omics cohort"
+  "Table 4. Clinical characteristics of\nthe final multi-omics cohort"
 )
