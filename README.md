@@ -206,7 +206,7 @@ DNA methylation metadata (GSE201872) and RNA-seq metadata (GSE201955) were obtai
 The DNA methylation dataset was restricted to samples analyzed using the Illumina HumanMethylation450 BeadChip (GPL13534). Participants were considered eligible if they met the following criteria:
 
 - Body mass index (BMI) < 30 kg/m²
-- No current smoking (`current_smok == "No"`)
+- Current non-smoker (`current_smok == "No"`)
 - Availability of DNA methylation data
 
 These criteria resulted in **41 eligible DNA methylation samples**.
@@ -232,7 +232,7 @@ All 20 selected participants met the BMI and current smoking criteria and had co
 ```mermaid
 flowchart TD
     A["DNA methylation metadata<br/>GSE201872: 142 samples"]
-    B["450K platform and eligibility filtering<br/>BMI &lt; 30; no current smoking"]
+    B["450K platform and eligibility filtering<br/>BMI &lt; 30; current non-smoker"]
     C["41 eligible methylation samples"]
     D["RNA-seq metadata<br/>GSE201955: 118 samples"]
     E["Match participant identifiers<br/>and verify asthma status"]
