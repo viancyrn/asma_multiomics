@@ -149,7 +149,12 @@ After filtering, 41 eligible methylation candidates remained:
 | Control | 41 | 18 |
 | **Total** | **112** | **41** |
 
-![Table 1. DNA methylation sample availability and eligibility](results/tables/01_sample_availability.png)
+<!-- Table 1: DNA methylation sample availability -->
+<p align="center">
+  <img src="results/tables/01_sample_availability.png"
+       alt="Table 1. DNA methylation sample availability and eligibility"
+       width="550">
+</p>
 
 ### 1.3 Study group distribution
 
@@ -166,7 +171,12 @@ ABRIDGE and CABFIR contain both asthma and control candidates. ROLD contains no 
 
 Consequently, ABRIDGE and CABFIR are the principal studies considered for the paired study design.
 
-![Table 2. Eligible candidates by study cohort](results/tables/02_study_cohort_distribution.png)
+<!-- Table 2: Study cohort distribution -->
+<p align="center">
+  <img src="results/tables/02_study_cohort_distribution.png"
+       alt="Table 2. Eligible candidates by study cohort"
+       width="550">
+</p>
 
 ### 1.4 Age Distribution
 
@@ -195,7 +205,12 @@ Sex distributions were compared between asthma and control candidates within ABR
 | CABFIR | Asthma | 3 | 4 |
 | CABFIR | Control | 7 | 4 |
 
-![Table 3. Clinical characteristics of eligible candidates](results/tables/03_clinical_characteristics.png)
+<!-- Table 3: Clinical characteristics -->
+<p align="center">
+  <img src="results/tables/03_clinical_characteristics.png"
+       alt="Table 3. Clinical characteristics of eligible candidates"
+       width="650">
+</p>
 
 ### 1.7 Exploratory analysis summary
 
