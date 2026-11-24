@@ -428,6 +428,76 @@ table_4 <- data.frame(
 
 print(table_4)
 
+# Ajustar la función de exportación para la tabla 4
+# Mantener el formato original y corregir el tamaño de la imagen
+
+save_table_png_original <- save_table_png
+
+save_table_png <- function(data, filename, title) {
+  
+  # Crear una imagen con dimensiones suficientes
+  grDevices::png(
+    filename = filename,
+    width = 1800,
+    height = 1050,
+    res = 200,
+    bg = "white"
+  )
+  
+  # Crear la tabla con el estilo original
+  tabla <- gridExtra::tableGrob(
+    data,
+    rows = NULL,
+    theme = gridExtra::ttheme_minimal(
+      base_size = 11,
+      padding = grid::unit(c(4, 7), "mm"),
+      core = list(
+        fg_params = list(col = "#243447", fontsize = 11),
+        bg_params = list(
+          fill = rep(c("#FFFFFF", "#EDF4FA"), length.out = nrow(data)),
+          col = "#DCE5EE"
+        )
+      ),
+      colhead = list(
+        fg_params = list(
+          col = "#FFFFFF",
+          fontface = "bold",
+          fontsize = 11
+        ),
+        bg_params = list(fill = "#24577A", col = "#24577A")
+      )
+    )
+  )
+  
+  # Dibujar el título y la tabla sin recortes
+  grid::grid.newpage()
+  
+  grid::grid.text(
+    title,
+    x = 0.5,
+    y = 0.88,
+    gp = grid::gpar(
+      fontsize = 14,
+      fontface = "bold",
+      col = "#183B56"
+    )
+  )
+  
+  grid::pushViewport(
+    grid::viewport(
+      x = 0.5,
+      y = 0.43,
+      width = 0.90,
+      height = 0.65
+    )
+  )
+  
+  grid::grid.draw(tabla)
+  grid::popViewport()
+  
+  grDevices::dev.off()
+}
+
 # 35. Guardar la tabla descriptiva
 # Utilizar la función de formato definida en el script 01
 
